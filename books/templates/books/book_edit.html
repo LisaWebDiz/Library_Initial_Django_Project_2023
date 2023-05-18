@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Редактирование книги
+{% endblock %}
+
+{% block content %}
+    <h2>Редактировать</h2>
+    <div class="col-md-6">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+{#            <p>#}
+            <form method="post">
+                {% csrf_token %}
+                <table>
+                    {{ form.as_p }}
+                </table>
+                <input class="btn btn-outline-light" type="submit" value="Редактировать">
+                <a href="{% url 'books_list' %}" class="btn btn-info">Назад</a>
+            </form>
+{#            </p>#}
+
+        </div>
+    </div>
+
+{% endblock %}
+

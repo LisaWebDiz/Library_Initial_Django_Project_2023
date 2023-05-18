@@ -1,0 +1,67 @@
+{#{% load static %}#}
+{#<link href="{% static 'css/styles.css' %}" rel="stylesheet">#}
+
+<header class="p-3 text-bg-dark">
+      <h1>Небанальное чтиво</h1>
+    <div class="container">
+
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{% url 'index_book' %}" class="nav-link px-2 text-secondary">Главная</a></li>
+          <li><a href="{% url 'books_list' %}" class="nav-link px-2 text-white">Каталог</a></li>
+
+            {% if perms.books.add_book %}
+            <li><a href="{% url 'add_book' %}" class="nav-link px-2 text-white">Добавить книгу</a></li>
+            {% endif %}
+
+            <li><a href="{% url 'email_contact' %}" class="nav-link px-2 text-white">Свяжитесь с нами</a></li>
+
+{#          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>#}
+{#          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>#}
+{#          <li><a href="#" class="nav-link px-2 text-white">About</a></li>#}
+        </ul>
+
+{#        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">#}
+{#          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">#}
+{#        </form>#}
+
+        <div class="text-end">
+            {% if request.user.is_anonymous %}
+                <a href="{% url 'log_in' %}" class="btn btn-outline-light me-2">Войти</a>
+                <a href="{% url 'regis' %}" class="btn btn-outline-light me-2">Зарегистрироваться</a>
+            {% else %}
+                <a href="{% url 'log_out' %}" class="btn btn-outline-light me-2">Выйти</a>
+        {% endif %}
+
+
+
+
+
+            {#          <button type="button" class="btn btn-warning"></button>#}
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+
+
+
+
+
+
+
+
+
+{#<header class="d-flex justify-content-center py-3">#}
+{#    <ul class="nav nav-pills">#}
+{#        <li class="nav-item"><a href="{% url 'index_book' %}" class="nav-link active" aria-current="page">Домашняя страница</a></li>#}
+{#        <li class="nav-item"><a href="{% url 'books_list' %}" class="nav-link">Список книг</a></li>#}
+{#    </ul>#}
+{#</header>#}
