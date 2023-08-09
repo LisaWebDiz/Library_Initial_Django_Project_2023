@@ -10,21 +10,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import environ
 import os
+
 from pathlib import Path
+
+env = environ.Env()
+environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q7k&_)8v#2n5lr3yt_xfi0f(_9bf3-xtppvt2!sss(u8y64r3b'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', False)
 
 ALLOWED_HOSTS = []
 
@@ -80,15 +86,15 @@ WSGI_APPLICATION = 'Library.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_library',
-        'USER': 'postgres',
-        'PASSWORD': open(r'C:/Users/lisaa/Documents/Плеханова/postgre.txt', 'r').read(),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-
+        'ENGINE': env('DB_ENGINE'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
+
 
 
 # Password validation
@@ -148,12 +154,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Установка пути дл�
 MEDIA_URL = '/media/' # url адрес для вывода изображений на сайт
 
 
-EMAIL_HOST_USER = open(r'C:/Users/lisaa/Documents/Плеханова/host_user.txt', 'r').read()
-EMAIL_HOST_PASSWORD = open(r'C:/Users/lisaa/Documents/Плеханова/Пароль для внешних приложений.txt', 'r').read()
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-EMAIL_USE_TLC = True
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST = ''
+EMAIL_PORT = ''
+EMAIL_USE_SSL = ''
+EMAIL_USE_TLC = ''
 
 
 # SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
