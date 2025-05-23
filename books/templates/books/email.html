@@ -6,6 +6,7 @@
 
 {% block content %}
     <h2>Свяжитесь с нами</h2>
+
     <div class="col-md-6">
         <div class="h-100 p-5 text-bg-dark rounded-3">
             <form method="post">
@@ -13,14 +14,14 @@
                 <table>
                     {{ form.subject.label }}
                     {{ form.subject }}
-
                     {{ form.content.label }}
                     {{ form.content }}
-                </table><br>
+                </table>
+                <br>
+
                 <input class="btn btn-outline-light" type="submit" value="Отправить сообщение">
                 <a href="{% url 'index_book' %}" class="btn btn-info">Назад</a>
             </form>
-
         </div>
     </div>
 

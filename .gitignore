@@ -1,0 +1,17 @@
+.env
+*.env
+htmlcov/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/.env
+venv/
+.venv/
+pyvenv.cfg
+.idea/
+Lib/
+Scripts/
+static/
+staticfiles/
+

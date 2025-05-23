@@ -1,14 +1,16 @@
-from django import forms
-from .models import Book
 import re
-from django.core.exceptions import ValidationError
+
+from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+from .models import Book
+
 
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        # fields = '__all__'
         fields = ['title', 'description', 'pages_quantity', 'price', 'cover_type', 'size', 'exist']
 
         widgets = {
@@ -56,18 +58,6 @@ class BookForm(forms.ModelForm):
                 }
             )
         }
-        # 'publication_date': forms.DateInput(
-        #     attrs={
-        #         'class': 'form-control',
-        #         'placeholder': "Дата публикации"
-        #     }
-        # ),
-        # 'photo': forms.TextInput(
-        #     attrs={
-        #         'class': 'form-control',
-        #         'placeholder': "Фотография обложки"
-        #     }
-        # ),
 
     def clean_title(self):
         title = self.cleaned_data['title']
@@ -83,17 +73,10 @@ class BookForm(forms.ModelForm):
         return size
 
 
-    # def clean_pages_quantity(self):
-    #
-    #     pages_quantity = self.cleaned_data['pages_quantity']
-    #     if re.match(r'\D', pages_quantity):
-    #         raise ValidationError('Некорректный ввод')
-    #     return pages_quantity
-
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(
         label='Логин пользователя',
-        widget=forms.TextInput(attrs={'class':'form-control', }),
+        widget=forms.TextInput(attrs={'class': 'form-control', }),
         min_length=2,
     )
     email = forms.CharField(
@@ -141,39 +124,3 @@ class ContactForm(forms.Form):
                    'rows': 11, },
         )
     )
-
-
-
-# class BookForm(forms.Form):
-#
-#     title = forms.CharField(max_length=50,
-#                            min_length=2,
-#                            strip=True,
-#                            label="Наименование книги",)
-#     description = forms.CharField(max_length=600,
-#                                   min_length=2,
-#                                   strip=True,
-#                                   widget=forms.Textarea,
-#                                   label="Описание",
-#                                   initial="Описание")
-#     pages_quantity = forms.CharField(max_length=4,
-#                                   min_length=2,
-#                                   strip=True,
-#                                   label="Количество страниц")
-#     price = forms.FloatField(min_value=1,
-#                                # step_size=10,
-#                                label="Стоимость")
-#                                 # initial=40)
-#     cover_type = forms.CharField(max_length=20,
-#                                   min_length=2,
-#                                   strip=True,
-#                                   label="Тип обложки",
-#                                   initial='Мягкий переплет')
-#     size = forms.CharField(max_length=12,
-#                            min_length=2,
-#                            strip=True,
-#                            label="Размер",)
-#     publication_date = forms.DateField(label="Дата публикации")
-#                                        # widget=forms.SelectDateWidget,
-#     photo = forms.ImageField(required=False,
-#                              label="Фотография обложки")

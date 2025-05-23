@@ -10,18 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import environ
 import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q7k&_)8v#2n5lr3yt_xfi0f(_9bf3-xtppvt2!sss(u8y64r3b'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'books.apps.BooksConfig',
     'books',
     'rest_framework',
 ]
@@ -58,8 +61,7 @@ ROOT_URLCONF = 'Library.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        # 'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,16 +82,14 @@ WSGI_APPLICATION = 'Library.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_library',
-        'USER': 'postgres',
-        'PASSWORD': open(r'C:/Users/lisaa/Documents/Плеханова/postgre.txt', 'r').read(),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-
+        'ENGINE': env('DB_ENGINE'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -132,10 +132,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR / 'static')
 
 STATICFILES_DIRS = [
-
-    os.path.join(BASE_DIR, 'books/static')#,
-    # os.path.join(BASE_DIR, 'Library/static')
-
+    os.path.join(BASE_DIR, 'books/static')
 ]
 
 
@@ -147,14 +144,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Установка пути для медиаконтента
 MEDIA_URL = '/media/' # url адрес для вывода изображений на сайт
 
-
-EMAIL_HOST_USER = open(r'C:/Users/lisaa/Documents/Плеханова/host_user.txt', 'r').read()
-EMAIL_HOST_PASSWORD = open(r'C:/Users/lisaa/Documents/Плеханова/Пароль для внешних приложений.txt', 'r').read()
+EMAIL_RECEIVER = env('EMAIL_RECEIVER')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_USE_TLC = True
-
-
-# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-# BASKET_SESSION_ID = 'basket'

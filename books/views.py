@@ -1,32 +1,19 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-
-from .models import Book
-from .forms import BookForm, RegistrationForm, LoginForm, ContactForm
-
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-# from .utils import Default_value
-
-from django.urls import reverse, reverse_lazy
-
-from django.core.paginator import Paginator
-
-from django.contrib.auth import login, logout
-
-from django.contrib.auth.decorators import login_required, permission_required
-from django.utils.decorators import method_decorator
-
-from django.core.mail import send_mail, send_mass_mail
 from django.conf import settings
-
-from django.http import JsonResponse
-from .serializer import BookSerializer
-
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import permission_required
+from django.core.mail import send_mail
+from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import CreateView, UpdateView, DeleteView
 from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import viewsets
+from rest_framework.response import Response
 
+from .forms import BookForm, RegistrationForm, LoginForm, ContactForm
+from .models import Book
+from .serializer import BookSerializer
 
 
 def index(request):
@@ -38,15 +25,13 @@ def catalogue(request):
 
     paginator = Paginator(Book.objects.all(), 2)
     page_num = request.GET.get('page', 1)
-
     page_objects = paginator.get_page(page_num)
-    # context['books_list'] = page_objects
+
     context['page_obj'] = page_objects
 
     return render(request, 'books/books_list.html', context)
 
 
-# @login_required
 @permission_required('books.add_book')
 def book_details(request, book_id):
     the_book = get_object_or_404(Book, pk=book_id)
@@ -76,7 +61,6 @@ class BookUpdateView(UpdateView):
 class BookDeleteView(DeleteView):
     model = Book
     success_url = reverse_lazy('books_list')
-    # pk_url_kwarg = 'book_id' # Переопределить ключ
 
     @method_decorator(permission_required('books.delete_book'))
     def dispatch(self, request, *args, **kwargs):
@@ -125,7 +109,7 @@ def contact_email(request):
                 form.cleaned_data['subject'],
                 form.cleaned_data['content'],
                 settings.EMAIL_HOST_USER,
-                [open(r'C:/Users/lisaa/Documents/Плеханова/host_user.txt', 'r').read()],
+                [settings.EMAIL_RECEIVER],
                 fail_silently=False
             )
             if mail:
@@ -140,7 +124,6 @@ def books_api_list(request):
     if request.method == 'GET':
         books_list = Book.objects.all()
         serializer = BookSerializer(books_list, many=True)
-        # return JsonResponse({'books_list': serializer.data})
         return Response({'books_list': serializer.data})
     elif request.method == 'POST':
         serializer = BookSerializer(data=request.data)
@@ -168,66 +151,3 @@ def books_api_detail(request, pk, format=None):
                 return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
-
-
-
-
-
-# def book_add(request):
-#     if request.method == "POST":
-#         context = dict()
-#         context['title'] = request.POST.get('title')
-#         context['description'] = request.POST.get('description')
-#         context['pages_quantity'] = request.POST.get('pages_quantity')
-#         context['price'] = request.POST.get('price')
-#         context['cover_type'] = request.POST.get('cover_type')
-#         context['size'] = request.POST.get('size')
-#         context['publication_date'] = request.POST.get('publication_date')
-#         context['photo'] = request.POST.get('photo')
-#
-#         Book.objects.create(
-#             title=context['title'],
-#             description=context['description'],
-#             pages_quantity=context['pages_quantity'],
-#             price=context['price'],
-#             cover_type=context['cover_type'],
-#             size=context['size'],
-#             publication_date=context['publication_date'],
-#             photo=context['photo']
-#         )
-#         return HttpResponseRedirect('/books/catalogue/')
-#     else:
-#         bookform = BookForm()
-#         context = {'form': bookform}
-#     return render(request, 'books/book_add.html', context=context)
-
-
-# def book_save(request):
-#     context = {'title': 'Книги'}
-#     books = Book.objects.all()
-#     context['books_list'] = books
-#     if request.method =='GET':
-#         book_id = request.GET.get('id', 1)
-#         try:
-#             one_book = Book.objects.get(pk=book_id)
-#         except:
-#             pass
-#         else:
-#             context['the_book'] = one_book
-#         context['title'] = request.GET.get('title',)
-#     elif request.method == 'POST':
-#         book_id = request.POST.get('id', 1)
-#         try:
-#             one_book = Book.objects.get(pk=book_id)
-#         except:
-#             pass
-#         else:
-#             context['the_book'] = one_book
-#         context['title'] = request.POST.get('title',)
-#
-#
-#     return render(
-#         request=request,
-#         template_name='books/books_list.html',
-#         context=context)

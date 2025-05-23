@@ -1,4 +1,5 @@
 from django.urls import path
+
 from books.views import *
 
 urlpatterns = [
@@ -18,7 +19,5 @@ urlpatterns = [
 
     path('api/list', books_api_list, name='books_api_list'),
     path('api/detail/<int:pk>', books_api_detail, name='books_api_detail')
-
 ]
-
 

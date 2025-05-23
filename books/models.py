@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse # reverse_lazy
+from django.urls import reverse
 
 
 class Book(models.Model):
@@ -23,8 +23,3 @@ class Book(models.Model):
         verbose_name = 'Книга'
         verbose_name_plural = 'Книги'
         ordering = ['title']
-
-
-
-
-
