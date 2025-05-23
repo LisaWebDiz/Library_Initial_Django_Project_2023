@@ -14,5 +14,5 @@ Lib/
 Scripts/
 static/
 staticfiles/
-
-
+db.sqlite3
+.coverage
