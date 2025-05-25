@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'Library.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': env('DB_ENGINE'),
-        'NAME': env('POSTGRES_DB', default='django_library'),
+        'NAME': env('POSTGRES_DB'),
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
         'HOST': env('DB_HOST'),
@@ -131,13 +131,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'books' / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATIC_ROOT = os.path.join(BASE_DIR / 'static')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'books/static')
-]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Default primary key field type
@@ -145,7 +144,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Установка пути для медиаконтента
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media/') # Установка пути для медиаконтента
 MEDIA_URL = '/media/' # url адрес для вывода изображений на сайт
 
 EMAIL_RECEIVER = env('EMAIL_RECEIVER')

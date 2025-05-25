@@ -3,11 +3,12 @@ version: '3.9'
 services:
   web:
     build: .
-    command: gunicorn Library.wsgi:application --bind 0.0.0.0:8000
+#    command: gunicorn Library.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
-      - "8000:8000"
+      - "8001:8000"
     env_file:
       - .env
     depends_on:
@@ -19,7 +20,7 @@ services:
     image: postgres:15
     restart: always
     ports:
-      - "55432:5432"
+      - "55433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -34,7 +35,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
-      - "5050:80"
+      - "5051:80"
     depends_on:
       - db
 
