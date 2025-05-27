@@ -144,8 +144,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, '/media/') # Установка пути для медиаконтента
-MEDIA_URL = '/media/' # url адрес для вывода изображений на сайт
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 
 EMAIL_RECEIVER = env('EMAIL_RECEIVER')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')

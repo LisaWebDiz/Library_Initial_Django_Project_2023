@@ -2,15 +2,20 @@ from django.db import models
 from django.urls import reverse
 
 
+class BookCoverType(models.TextChoices):
+    HARD = 'hard', 'Твёрдая'
+    SOFT = 'soft', 'Мягкая'
+
+
 class Book(models.Model):
     title = models.CharField(max_length=120, default='Книга', null=True, verbose_name='Наименование')
     description = models.TextField(blank=True, null=False, verbose_name='Описание')
     pages_quantity = models.IntegerField(null=False, verbose_name='Количество страниц')
     price = models.FloatField(default=500, null=True, verbose_name='Цена')
-    cover_type = models.CharField(max_length=30, null=False, verbose_name='Тип обложки')
+    cover_type = models.CharField('Тип обложки', choices=BookCoverType.choices, default=BookCoverType.HARD, max_length=30)
     size = models.CharField(max_length=120, null=False, verbose_name='Размер',)
     publication_date = models.DateField(auto_now_add=True, null=True, verbose_name='Дата публикации')
-    photo = models.ImageField(upload_to='image/%Y/%m/%d', verbose_name='Фото')
+    photo = models.ImageField(upload_to='image/%Y/%m/%d', blank=True, null=True, verbose_name='Фото')
     exist = models.BooleanField(default=True, null=True, verbose_name='В каталоге?')
 
     def __str__(self):

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
     Добавление книги
 {% endblock %}
@@ -10,7 +10,7 @@
     <div class="col-md-6">
         <div class="h-100 p-5 text-bg-dark rounded-3">
 
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <table>
                     {{ form.as_p }}
@@ -23,4 +23,3 @@
     </div>
 
 {% endblock %}
-

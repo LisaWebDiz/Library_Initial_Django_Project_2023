@@ -11,7 +11,7 @@ from .models import Book
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['title', 'description', 'pages_quantity', 'price', 'cover_type', 'size', 'exist']
+        fields = ['title', 'description', 'pages_quantity', 'price', 'cover_type', 'size', 'photo', 'exist']
 
         widgets = {
             'title': forms.TextInput(
@@ -39,7 +39,7 @@ class BookForm(forms.ModelForm):
                     'placeholder': "Стоимость"
                 }
             ),
-            'cover_type': forms.TextInput(
+            'cover_type':  forms.Select(
                 attrs={
                     'class': 'form-control',
                     'placeholder': "Тип обложки"
@@ -51,7 +51,12 @@ class BookForm(forms.ModelForm):
                     'placeholder': "Размер"
                 }
             ),
-
+            'photo': forms.ClearableFileInput(
+                attrs={
+                    'class': 'form-control',
+                    'accept': 'image/*'
+                }
+            ),
             'exist': forms.CheckboxInput(
                 attrs={
                     'class': 'form-check-input',

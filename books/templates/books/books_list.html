@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
     Каталог
 {% endblock %}
@@ -22,8 +22,8 @@
                     {% if item.photo != '' %}
                         <img src="{{ item.photo.url }}" class="card-img-top" style="max-width: 200px;" alt="..."/>
                     {% else %}
-                        <img src="https://wallbox.ru/resize/320x240/wallpapers/main/201505/a79e36822cb5b91.jpg"
-                             class="card-img-top" style="max-width: 200px;" alt="..."/>
+                        <img src="{% static 'img/default_photo.jpg' %}"
+                        class="card-img-top" style="max-width: 200px;" alt="..."/>
                     {% endif %}
                 </div>
 
