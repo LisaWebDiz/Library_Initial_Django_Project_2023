@@ -11,9 +11,9 @@
         <div class="row g-0">
 
             {% if book_item.photo %}
-                <img src="{{ book_item.photo.url }}" style="max-width: 600px;">
+                <img src="{{ book_item.photo.url }}" style="max-width: 300px;">
             {% else %}
-                <img src="{% static 'img/default_photo.jpg' %}" style="max-width: 600px;">
+                <img src="{% static 'img/default_photo.jpg' %}" style="max-width: 400px;">
             {% endif %}
 
             <div class="col-md-8">
