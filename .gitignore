@@ -12,7 +12,6 @@ pyvenv.cfg
 .idea/
 Lib/
 Scripts/
-static/
 staticfiles/
 db.sqlite3
 .coverage
