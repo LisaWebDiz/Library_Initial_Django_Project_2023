@@ -32,7 +32,6 @@ def catalogue(request):
     return render(request, 'books/books_list.html', context)
 
 
-@permission_required('books.add_book')
 def book_details(request, book_id):
     the_book = get_object_or_404(Book, pk=book_id)
     return render(request, 'books/book_info.html', {'book_item': the_book})
@@ -44,6 +43,10 @@ class BookCreateView(CreateView):
     template_name = 'books/book_add.html'
     context_object_name = 'form'
     success_url = reverse_lazy('books_list')
+
+    @method_decorator(permission_required('books.add_book'))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class BookUpdateView(UpdateView):
