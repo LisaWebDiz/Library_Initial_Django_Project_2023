@@ -1,4 +1,4 @@
-### Library: Initial Django Experience Project 2023
+# Library: Initial Django Experience Project 2023
 ### Description
 
 ### Quick start via Docker
