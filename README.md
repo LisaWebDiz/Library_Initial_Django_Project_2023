@@ -10,7 +10,7 @@ cp example.env .env
 docker-compose up --build
 docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py createsuperuser
-
+```
 Enjoy!
 
 ### Features
@@ -22,6 +22,7 @@ Enjoy!
     • Registration/Authentication
 
 ### Pages
+
 ![Mainpage](assets/mainpage.png)
 ![Registration](assets/registration.png)
 ![Login](assets/login.png)
