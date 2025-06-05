@@ -1,5 +1,6 @@
 # Library: Initial Django Experience Project 2023
 ### Description
+This is a simple Library Management Web Application built with Django and Django REST Framework. The app allows users to register, browse books, and manage data via an admin panel or API. It uses PostgreSQL for data storage and supports RESTful API endpoints with full documentation.
 
 ### Quick start via Docker
 
@@ -13,13 +14,16 @@ docker-compose exec web python manage.py createsuperuser
 ```
 Enjoy!
 
-### Features
-    • Django admin panel for managing data
+### Key Features
+
+    • User registration & authentication via Django’s built-in django.contrib.auth framework
+    • Django admin panel for managing data at http://localhost:8000/admin/
     • Fully documented REST API
     • Data storage using PostgreSQL
-    • pgAdmin for database viewing: http://localhost:5050
-    • Admin panel: http://localhost:8000/admin/
-    • Registration/Authentication
+    • Built-in pgAdmin interface for managing the database at http://localhost:5050
+    • Catalogue list view and detail view for books
+    • Add / edit / delete book entries — available for registered users
+
 
 ### Pages
 
