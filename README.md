@@ -23,6 +23,7 @@ Enjoy!
     • Built-in pgAdmin interface for managing the database at http://localhost:5050
     • Catalogue list view and detail view for books
     • Add / edit / delete book entries — available for registered users
+    • Frontend styled with CSS and Bootstrap
 
 
 ### Pages
